@@ -1,14 +1,50 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Locate Hospitals and Restaurants
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div #map id = "map"></div>
+  <hr>
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button color="secondary" (click)="showNearByHospitals()"><ion-icon name = "list"></ion-icon>Hospitals</button>
+    </ion-col>
+    <ion-col text-center>
+      <button ion-button color="secondary" (click)="showNearByRestro()"><ion-icon name = "list"></ion-icon>Restaurants</button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-searchbar (ionInput)="getTopics($event)" [showCancelButton]="shouldShowCancel" (ionCancel)="onCancel($event)" placeholder="Enter the keyword"></ion-searchbar>
+  </ion-row>
+  <hr>
+  <div style = "width: 100%; height: 60%" *ngIf = "hospitals">
+    <ion-list>
+      <ion-item *ngFor="let hospital of hospitals">
+        <ion-row>
+          <ion-col col-2><img src="{{hospital.icon}}" alt="icon" class = "image"></ion-col>
+          <ion-col col-10>
+            <h3>{{hospital.name}}</h3>
+            <p>{{hospital.vicinity}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div style = "width: 100%; height: 60%" *ngIf = "restaurants">
+      <ion-list>
+        <ion-item *ngFor="let restro of restaurants">
+            <ion-row>
+                <ion-col col-2><img src="{{restro.icon}}" alt="icon" class = "image"></ion-col>
+                <ion-col col-10>
+                    <h3>{{restro.name}}</h3>
+                    <p>{{restro.vicinity}}</p>
+                </ion-col>
+              </ion-row>
+        </ion-item>
+      </ion-list>
+    </div>
 </ion-content>
